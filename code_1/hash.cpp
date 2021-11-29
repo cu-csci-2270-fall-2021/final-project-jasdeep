@@ -4,32 +4,47 @@
 
 
 using namespace std;
-
+//Done
 HashNode* HashTable::createNode(string key, HashNode* next)
 {
-    HashNode* nw = NULL;
+    HashNode* nw = new HashNode;
+    nw->key = key;
+    nw->next = next;
     return nw;
 }
-
+//Done
 HashTable::HashTable(int bsize)
 {
-   
+    this->tableSize= bsize;
+    table = new HashNode*[tableSize];
+    for (int i = 0; i < bsize; i++)
+        table[i] = nullptr;
 }
 
 //function to calculate hash function
 unsigned int HashTable::hashFunction(string s)
 {
-    
-    return 0;
+    int count = 0;
+    for (int i = 0; i < s.size(); i++) {
+        count += s[i];
+    }
+    return (count % tableSize);
 }
 
 // TODO Complete this function
 //function to search
 HashNode* HashTable::searchItem(string key)
 {
-   
-
     //TODO
+    int index = hashFunction(key);
+    HashNode * temp = table[index];
+    while(temp != NULL) {
+        if (temp->key == key) {
+            return temp;
+        }
+        temp = temp->next;
+    }
+    //TODO: Search the list at that specific index and return the node if found
     return NULL;
     
 }
@@ -40,6 +55,17 @@ bool HashTable::insertItem(string key, int cNum)
 {
     
     //TODO
+    HashNode * temp = searchItem(key);
+    if (temp == NULL) {
+        int index = hashFunction(key);
+        HashNode * nw = createNode(key, table[index]);
+        nw->commitNums.push_back(cNum);
+        table[index] = nw;
+        return true;
+    } else {
+        temp->commitNums.push_back(cNum);
+        return true;
+    }
     return false;
 }
 
@@ -59,5 +85,14 @@ bool HashTable::insertItem(string key, int cNum)
 */
 void HashTable::printTable()
 {
-
- }
+    for (int i = 0; i < tableSize; i++) {
+        cout << i <<"|| ";
+        HashNode * temp = table[i];
+        while(temp) {
+            cout << temp->key << "-->";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+        //TODO
+    }
+}
