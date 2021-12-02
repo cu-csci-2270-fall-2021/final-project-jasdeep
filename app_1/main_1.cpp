@@ -60,6 +60,7 @@ int main(int argc, char* argv[]) {
                 }
                 break;
             }case 5:{
+                cout << "You are attempting to overwrite all the files in the current directory. You may lose your work. Proceed at your own risk/caution." << endl;
                 cout << "Enter a commit number: ";
                 string commitNumber;
                 cin >> commitNumber;

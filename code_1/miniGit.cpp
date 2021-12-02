@@ -16,7 +16,22 @@ MiniGit::MiniGit() {
 
 MiniGit::~MiniGit() {   
     // Any postprocessing that may be required
-
+    BranchNode * prev = NULL;
+    BranchNode * temp = commitHead;
+    while (temp != NULL) {
+        FileNode * prevFile = NULL;
+        FileNode * tempFile = temp->fileHead;
+        while (tempFile != NULL) {
+            prevFile = tempFile;
+            tempFile = tempFile->next;
+            delete prevFile;
+            prevFile = NULL;
+        }
+        prev = temp;
+        temp = temp->next;
+        delete prev;
+        prev = NULL;
+    }
 }
 
 void MiniGit::init(int hashtablesize) {
@@ -231,7 +246,7 @@ string MiniGit::commit(vector<string> messages, string msg) {
 
 void MiniGit::checkout(string commitID) {
     BranchNode * temp = commitHead;
-    while(temp->commitID != stoi(commitID) && temp != NULL) {
+    while(temp != NULL && temp->commitID != stoi(commitID)) {
         temp = temp->next;
     }
     BranchNode * latestCommit = commitHead;
