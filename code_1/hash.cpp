@@ -89,10 +89,16 @@ void HashTable::printTable()
         cout << i <<"|| ";
         HashNode * temp = table[i];
         while(temp) {
-            cout << temp->key << "-->";
+            cout << temp->key << "(";
+            for (int k = 0; k < temp->commitNums.size(); k++) {
+                cout << temp->commitNums.at(k) << ",";
+            }
+            cout << ")";
+            if (temp->next != NULL) {
+                cout << "-->";
+            }
             temp = temp->next;
         }
-        cout << "NULL" << endl;
-        //TODO
+        cout << endl;
     }
 }

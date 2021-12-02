@@ -43,10 +43,27 @@ int main(int argc, char* argv[]) {
                 git.rm(fileName);
                 break;
             }case 4:{
-                git.commit("lol");
+                string commitMessage;
+                cout << "Enter the commit message: ";
+                ws(cin);
+                getline(cin, commitMessage);
+                stringstream ss(commitMessage);
+                vector<string> messages;
+                string word = "";
+                for (int i = 0; getline(ss, word, ' '); i++) {
+                    messages.push_back(word);
+                }
+                if (messages.size() <= 3) {
+                    cout << git.commit(messages, commitMessage) << endl;
+                } else {
+                    cout << "Please enter a max of three words" << endl;
+                }
                 break;
             }case 5:{
-                
+                cout << "Enter a commit number: ";
+                string commitNumber;
+                cin >> commitNumber;
+                git.checkout(commitNumber);
                 break;
             }case 6:{
                 cout << "Enter a key: ";

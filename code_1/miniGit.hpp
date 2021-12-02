@@ -29,8 +29,7 @@ private:
     BranchNode* commitHead;
     int commits;
     HashTable* ht;
-    
-   
+    bool isRecentCommit = true;
 
 public:
     MiniGit();
@@ -40,7 +39,7 @@ public:
     void add(string fileName);
     void rm(string fileName);
     void search(string key);
-    string commit(string msg);
+    string commit(vector<string> messages, string msg);
     void checkout(string commitID);
     void printSearchTable();
     

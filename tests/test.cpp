@@ -85,8 +85,109 @@ TEST_F(test_x, TestInsert){
     expected = "0|| science(1,4,)\n1|| \n2|| \n3|| \n4|| difficult(3,)-->fun(2,)-->computer(0,)\n";
     
     ASSERT_EQ(expected, result);
-    add_points_to_grade(6);
-
+    add_points_to_grade(10);
+    
+    
+    
+    len = 1;
+    
+    string commits1[] = {"computer"};
+    tabSize = 5;
+    
+    result = test_insert(commits1, len, tabSize);
+    
+    expected = "0|| \n1|| \n2|| \n3|| \n4|| computer(0,)\n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(10);
+    
+    len = 0;
+    
+    string commits2[] = {};
+    tabSize = 5;
+    
+    result = test_insert(commits2, len, tabSize);
+    
+    expected = "0|| \n1|| \n2|| \n3|| \n4|| \n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(10);
+    
+    
+    len = 10;
+    string commits3[] = {"computer", "fun", "science", "test", "initial", "test", "ten", "fun", "test", "difficult"};
+    tabSize = 3;
+    
+    result = test_insert(commits3, len, tabSize);
+    
+    expected = "0|| difficult(9,)-->ten(6,)-->computer(0,)\n1|| test(3,5,8,)-->science(2,)\n2|| initial(4,)-->fun(1,7,)\n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(20);
 }
 
 //TODO add more tests for insert. Design tests for search from hashTable.
+
+TEST_F(test_x, TestSearch){
+    
+    
+    string result;
+    string expected;
+       
+    int len = 9;
+    string key = "science";
+    
+    string commits[] = {"computer", "science", "fun", "difficult", "science", "difficult", "fun", "twenty", "science"};
+    int tabSize = 5;
+    
+    result = test_search(commits, len, tabSize, key);
+    
+    expected = "1\n4\n8\n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(20);
+    
+    
+    len = 5;
+    key = "fun";
+    
+    string commits1[] = {"computer", "science", "fun", "difficult", "science"};
+    tabSize = 3;
+    
+    result = test_search(commits1, len, tabSize, key);
+    
+    expected = "2\n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(10);
+    
+    
+    
+    
+    len = 2;
+    key = "computer";
+    
+    string commits2[] = {"computer", "science"};
+    tabSize = 3;
+    
+    result = test_search(commits2, len, tabSize, key);
+    
+    expected = "0\n";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(10);
+    
+    
+    len = 0;
+    key = "computer";
+    
+    string commits3[] = {};
+    tabSize = 3;
+    
+    result = test_search(commits3, len, tabSize, key);
+    
+    expected = "";
+    
+    ASSERT_EQ(expected, result);
+    add_points_to_grade(10);
+}
