@@ -1,8 +1,10 @@
 #ifndef HASH_HPP
 #define HASH_HPP
 
+#include <string.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 
 using namespace std;
